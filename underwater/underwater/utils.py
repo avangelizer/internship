@@ -90,12 +90,27 @@ def reshape_image_3D_2D(image):
   image_array = np.reshape(image, (w * h * d))
   return image_array
 
-def reshape_series_images(series):
+def reshape_series_images_3D_2D(series):
   """ 
   input: series of 3D images
   output: series of 1D images
   """
-  series = series.apply(lambda x: reshape_image(x))
+  series = series.apply(lambda x: reshape_image_3D_2D(x))
+  return series
+def reshape_image_2D_1D(image):
+  # Load Image and transform from 2D to a 1D numpy array.
+  #w, h, d = original_shape = tuple(image.shape)
+  w, h= original_shape = tuple(image.shape)
+  #assert d == 3
+  #image_array = np.reshape(image, (w * h * d))
+  image_array = np.reshape(image, (w * h))
+  return image_array
+def reshape_series_images_2D_1D(series):
+  """ 
+  input: series of 2D images
+  output: series of 1D images
+  """
+  series = series.apply(lambda x: reshape_image_2D_1D(x))
   return series
 
 def visualizing_3D(images):
@@ -113,17 +128,7 @@ def visualizing_3D(images):
       axi.imshow(image, interpolation='nearest', cmap=plt.cm.binary)
 
   pass
-def reshape_image_2D_1D(image):
-  # Load Image and transform from 2D to a 1D numpy array.
-  #w, h, d = original_shape = tuple(image.shape)
-  w, h= original_shape = tuple(image.shape)
-  #assert d == 3
-  #image_array = np.reshape(image, (w * h * d))
-  image_array = np.reshape(image, (w * h))
-  return image_array
-def reshape_series_images(series):
-  series = series.apply(lambda x: reshape_image(x))
-  return series
+
 
 def visualizing(images):
   #images is 2D array
