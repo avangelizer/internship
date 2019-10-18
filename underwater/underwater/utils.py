@@ -68,7 +68,7 @@ def load_series(url):
   #ThumbnailImage = df.ThumbnailImage
   PreviewImage = df.PreviewImage
   to_array = PreviewImage.apply(lambda x: readb64(x))
-  return to_array, PreviewImage
+  return to_array
 
 def series_range_0_1(series):
   """
@@ -79,7 +79,7 @@ def series_range_0_1(series):
   series = series / 255
   return series
 
-def reshape_image(image):
+def reshape_image_3D_2D(image):
   """
   input: image as 3D numpy array of shape  (w, h, d)
   output:  image as 1D numpy array (w * h * d)
@@ -98,7 +98,7 @@ def reshape_series_images(series):
   series = series.apply(lambda x: reshape_image(x))
   return series
 
-def visualizing(images):
+def visualizing_3D(images):
   """
   input: series (shape: (n_samples,n_features) of 1D images 
   output: visualize images after reshaping them
@@ -112,6 +112,58 @@ def visualizing(images):
       axi.set(xticks=[], yticks=[])
       axi.imshow(image, interpolation='nearest', cmap=plt.cm.binary)
 
+  pass
+def reshape_image_2D_1D(image):
+  # Load Image and transform from 2D to a 1D numpy array.
+  #w, h, d = original_shape = tuple(image.shape)
+  w, h= original_shape = tuple(image.shape)
+  #assert d == 3
+  #image_array = np.reshape(image, (w * h * d))
+  image_array = np.reshape(image, (w * h))
+  return image_array
+def reshape_series_images(series):
+  series = series.apply(lambda x: reshape_image(x))
+  return series
+
+def visualizing(images):
+  #images is 2D array
+  import matplotlib.pyplot as plt
+  fig, ax = plt.subplots(images.shape[0], 1, figsize=(20, 20))
+
+  for axi, image in zip(ax.flat, images):
+      image =image.reshape(256, 256)
+      axi.set(xticks=[], yticks=[])
+      axi.imshow(image, interpolation='nearest', cmap=plt.cm.binary)
+
   
   pass
 
+def resizing_img(img, shape=(256, 256)):
+  """
+  input:  a numpy array
+  output: resized array in the desired shape
+  """
+  import cv2
+  import numpy as np
+  res = cv2.resize(img, dsize=shape, interpolation=cv2.INTER_AREA) 
+  return res
+
+def resizing_imgs_series(series, shape=(256, 256)):
+  """
+  series where each row is a numpy array (image) 
+  """
+  res = series.apply(lambda x: resizing_img(x,shape)) 
+  return res
+def image_to_gray(image):
+  """
+  input: a numpy array(image in RGB)
+  output:a numpy array(image in grayscale)
+  """
+  import cv2
+  return cv2.cvtColor(image, cv2.COLOR_RGB2GRAY)
+def to_gray(series):
+  """
+  input: series where each row is a numpy array(image in RGB)
+  output:series where each row is a numpy array(image in grayscale)
+  """
+  return series.apply(lambda x: image_to_gray(x))
