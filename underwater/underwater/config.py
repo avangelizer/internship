@@ -1,4 +1,8 @@
 url = "https://b2drop.eudat.eu/s/FHdjkB6zyjLTLdb/download"
+url2 = "https://b2drop.eudat.eu/s/8mkrgpd3xSzwpD4/download?path=%2F&files=All_Exif_metadata_%20session_2019_06_15_kite_Le_Morne_little_reef_Chameau.csv.zip"
+
+
+
 index=list(range(0,141))
 index.extend([142,147,148,153,160,165,168,169,173,181,183,186,187,188,189,190,192,193,201,202,203,210,211,215,216,218,222,226,228,232,233,236,237,242,245,262])
 index.extend(list(range(264,268)))
