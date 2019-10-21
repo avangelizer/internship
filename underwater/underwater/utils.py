@@ -65,7 +65,7 @@ def load_series(url):
   output: decoded series of 3D numpy arrays and the coded column(not used afterwards) 
   """
   df = read_csv_from_url(url)
-  #ThumbnailImage = df.ThumbnailImage
+  print(df.columns)
   PreviewImage = df.PreviewImage
   to_array = PreviewImage.apply(lambda x: readb64(x))
   return to_array
@@ -75,7 +75,6 @@ def series_range_0_1(series):
   input: series with 0-255 range numpy arrays
   output: series with 0-1 range numpy arrays
   """
-  import numpy as np
   series = series / 255
   return series
 
@@ -97,7 +96,7 @@ def reshape_series_images_3D_2D(series):
   """
   series = series.apply(lambda x: reshape_image_3D_2D(x))
   return series
-def reshape_image_2D_1D(image):
+def reshape_image(image):
   # Load Image and transform from 2D to a 1D numpy array.
   #w, h, d = original_shape = tuple(image.shape)
   w, h= original_shape = tuple(image.shape)
@@ -105,7 +104,7 @@ def reshape_image_2D_1D(image):
   #image_array = np.reshape(image, (w * h * d))
   image_array = np.reshape(image, (w * h))
   return image_array
-def reshape_series_images_2D_1D(series):
+def reshape_series_images(series):
   """ 
   input: series of 2D images
   output: series of 1D images
@@ -172,3 +171,41 @@ def to_gray(series):
   output:series where each row is a numpy array(image in grayscale)
   """
   return series.apply(lambda x: image_to_gray(x))
+
+def visualize_kmeans(y, x,cluster_centers_):
+  """
+  input:
+  -y: the result of kmeans.fit_predict()
+  -x: the input data of shape(n_samples, n_features)
+  -cluster_centers_: the result of kmeans.fit().cluster_centers_
+  """
+  import matplotlib.pyplot as plt
+  #Visualising the clusters
+  plt.scatter([x[y_kmeans == 0, 0]], [x[y_kmeans == 0, 1]], s = 100, c = 'red', label = '0')
+  plt.scatter([x[y_kmeans == 1, 0]], [x[y_kmeans == 1, 1]], s = 100, c = 'blue', label = '1')
+  
+  #Plotting the centroids of the clusters
+  plt.scatter(kmeans.cluster_centers_[:, 0], kmeans.cluster_centers_[:,1], s = 100, c = 'yellow', label = 'Centroids')
+
+  plt.legend()
+  pass
+
+def elbow_plot():
+  #For future use
+  #Taken from: https://www.kaggle.com/tonzowonzo/simple-k-means-clustering-on-the-iris-dataset
+  #Finding the optimum number of clusters for k-means classification
+  from sklearn.cluster import KMeans
+  wcss = []
+
+  for i in range(1, 11):
+      kmeans = KMeans(n_clusters = i, init = 'k-means++', max_iter = 300, n_init = 10, random_state = 0)
+      kmeans.fit(x)
+      wcss.append(kmeans.inertia_)
+
+  #Plotting the results onto a line graph, allowing us to observe 'The elbow'
+  plt.plot(range(1, 11), wcss)
+  plt.title('The elbow method')
+  plt.xlabel('Number of clusters')
+  plt.ylabel('WCSS') #within cluster sum of squares
+  plt.show()
+  pass
