@@ -1,5 +1,5 @@
 url = "https://b2drop.eudat.eu/s/FHdjkB6zyjLTLdb/download"
-url2 = "https://b2drop.eudat.eu/s/8mkrgpd3xSzwpD4/download?path=%2F&files=All_Exif_metadata_%20session_2019_06_15_kite_Le_Morne_little_reef_Chameau.csv.zip"
+url2 = "https://b2drop.eudat.eu/s/8mkrgpd3xSzwpD4/download?path=%2F&files=resized_session_2019_07_07_snorkeling_Le_Morne.zip"
 
 
 
