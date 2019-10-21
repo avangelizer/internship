@@ -109,7 +109,7 @@ def reshape_series_images(series):
   input: series of 2D images
   output: series of 1D images
   """
-  series = series.apply(lambda x: reshape_image_2D_1D(x))
+  series = series.apply(lambda x: reshape_image(x))
   return series
 
 def visualizing_3D(images):
