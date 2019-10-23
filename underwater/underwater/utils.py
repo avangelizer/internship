@@ -18,10 +18,10 @@ def read_csv_from_url(url):
   from gzip import GzipFile
   content = requests.get(url)
   
-  if f.namelist().endswith('.zip'): 
+  if BytesIO(content.content).namelist().endswith('.zip'): 
     # unzip the content
     f = ZipFile(BytesIO(content.content))
-  elif f.namelist().endswith('.gz'): 
+  elif BytesIO(content.content).namelist().endswith('.gz'): 
     # unzip the content
     f = gzip.GzipFile(fileobj=BytesIO(content.content))
   print(f.namelist())
