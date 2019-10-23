@@ -3,7 +3,23 @@ This file contains functions that are used in the notebooks
 It serves to declatter the notebooks.
 
 """
-
+def unzip_url(url):
+  """
+  input: url to a zipped file or folder
+  output: unzipped file
+  """
+  import requests
+  from io import BytesIO
+  from zipfile import ZipFile
+  from gzip import GzipFile
+  content = requests.get(url)
+  try:
+    # unzip the content
+    unzipped = ZipFile(BytesIO(content.content)
+  except: 
+    # unzip the content
+    unzipped = GzipFile(fileobj=BytesIO(content.content))
+  return unzipped
 def read_csv_from_url(url):
   """
   input: url to a zip file
@@ -16,18 +32,18 @@ def read_csv_from_url(url):
   from io import BytesIO
   from zipfile import ZipFile
   from gzip import GzipFile
-  content = requests.get(url)
-  
+  #content = requests.get(url)
+  f = unzip_url(url)
   try:
     # unzip the content
-    f = ZipFile(BytesIO(content.content))
+    #f = ZipFile(BytesIO(content.content))
     print(f.namelist())
     with f.open(f.namelist()[0], 'r') as g: 
       df = pd.read_csv(g)
       return df
   except: 
     # unzip the content
-    f = GzipFile(fileobj=BytesIO(content.content))
+    #f = GzipFile(fileobj=BytesIO(content.content))
     with f as g:
       df = pd.read_csv(g)
       return df
