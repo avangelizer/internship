@@ -22,7 +22,22 @@ def read_csv_from_url(url):
   with f.open(f.namelist()[0], 'r') as g: 
     df = pd.read_csv(g)
   return df
-
+def read_csv_from_url_gz(url):
+  """
+  input: url to a csv file zipped(.gz)
+  role: unzips a file given the url without downloading it and returns the dataframe
+  returns: a dataframe
+  """
+  import requests
+  import pandas as pd
+  from io import BytesIO
+  content = requests.get(url)
+  # unzip the content
+  f = gzip.GzipFile(fileobj=BytesIO(content.content))
+  print(f.namelist())
+  with f.open(f.namelist()[0], 'r') as g: 
+    df = pd.read_csv(g)
+  return df
 def decode_base64(column):
   """
   input: series where each element is an image coded in base64 with the format: "base64:XXXXXXX"
@@ -61,7 +76,7 @@ def reshaping_2D(image):
 
 def load_series(url):
   """
-  input:url to zipped file
+  input:url to zipped file (.zip)
   output: decoded series of 3D numpy arrays and the coded column(not used afterwards) 
   """
   df = read_csv_from_url(url)
@@ -69,6 +84,7 @@ def load_series(url):
   PreviewImage = df.PreviewImage
   to_array = PreviewImage.apply(lambda x: readb64(x))
   return to_array
+
 
 def series_range_0_1(series):
   """
