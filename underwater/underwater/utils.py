@@ -23,8 +23,8 @@ def read_csv_from_url(url):
     f = ZipFile(BytesIO(content.content))
     print(f.namelist())
     with f.open(f.namelist()[0], 'r') as g: 
-    df = pd.read_csv(g)
-    return df
+      df = pd.read_csv(g)
+      return df
   except: 
     # unzip the content
     f = GzipFile(fileobj=BytesIO(content.content))
