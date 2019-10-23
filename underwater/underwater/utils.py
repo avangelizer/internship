@@ -15,7 +15,7 @@ def unzip_url(url):
   content = requests.get(url)
   try:
     # unzip the content
-    unzipped = ZipFile(BytesIO(content.content)
+    unzipped = ZipFile(BytesIO(content.content))
   except: 
     # unzip the content
     unzipped = GzipFile(fileobj=BytesIO(content.content))
