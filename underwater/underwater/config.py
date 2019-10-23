@@ -2,6 +2,10 @@ url = "https://b2drop.eudat.eu/s/FHdjkB6zyjLTLdb/download"
 url2 = "https://b2drop.eudat.eu/s/8mkrgpd3xSzwpD4/download?path=%2F&files=resized_session_2019_07_07_snorkeling_Le_Morne.zip"
 #link for 1 herb csv
 url3 = "https://b2drop.eudat.eu/s/r6DiZZqmdrkYWDK/download" 
+#Thalassodendron 
+url4="https://www.dropbox.com/s/fh4bnhewp8wgn06/Thalassodendron_ciliatum.zip?dl=0"
+#syringodium
+url5="https://www.dropbox.com/s/8ebhu6vencw4et0/Syringodium_isoetifolium.zip?dl=0"
 
 
 index=list(range(0,141))
