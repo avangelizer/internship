@@ -23,7 +23,7 @@ def read_csv_from_url(url):
     f = ZipFile(BytesIO(content.content))
   except: 
     # unzip the content
-    f = gzip.GzipFile(fileobj=BytesIO(content.content))
+    f = GzipFile(fileobj=BytesIO(content.content))
   else:
     print("not .zip and .gz")
   print(f.namelist())
