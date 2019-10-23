@@ -17,13 +17,14 @@ def read_csv_from_url(url):
   from zipfile import ZipFile
   from gzip import GzipFile
   content = requests.get(url)
-  print(f.namelist())
+  
   if f.namelist().endswith('.zip'): 
     # unzip the content
     f = ZipFile(BytesIO(content.content))
   elif f.namelist().endswith('.gz'): 
     # unzip the content
     f = gzip.GzipFile(fileobj=BytesIO(content.content))
+  print(f.namelist())
   with f.open(f.namelist()[0], 'r') as g: 
     df = pd.read_csv(g)
   return df
