@@ -167,17 +167,12 @@ def extract_feature_map(input_map, kmeans, centroids):
  
     return feature_map 
  
-# Resize the shorter dimension to 'new_size' 
-# while maintaining the aspect ratio 
-def resize_to_size(input_image, new_size=150): 
-    h, w = input_image.shape[0], input_image.shape[1] 
-    ds_factor = new_size / float(h) 
- 
-    if w < h: 
-        ds_factor = new_size / float(w) 
- 
-    new_size = (int(w * ds_factor), int(h * ds_factor)) 
-    return cv2.resize(input_image, new_size) 
+# Resize
+def resize_to_size(input_image, new_size=(256, 256)): 
+  import cv2
+  res = cv2.resize(img, dsize=new_size, interpolation=cv2.INTER_AREA) 
+  return res
+    
  
 if __name__=='__main__': 
     args = build_arg_parser().parse_args() 
