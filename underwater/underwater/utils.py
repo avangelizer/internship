@@ -3,9 +3,36 @@ This file contains functions that are used in the notebooks
 It serves to declatter the notebooks.
 
 """
+def download_from_dropbox(url, name_file):
+  import urllib.request
+  u = urllib.request.urlopen(url4)
+  data = u.read()
+  u.close()
+  with open(name_file, "wb") as f :
+     f.write(data)
+ pass     
+      
+def unzip_folder(url, dir_path):
+  """
+  input: url to a zipped folder and directory path for the unzipped folder
+  output: unzipped folder
+  """
+  import requests
+  from zipfile import ZipFile
+  from io import BytesIO
+  content = requests.get(url)
+  try:
+    f = ZipFile(BytesIO(content.content))
+    with f.open(f.namelist()[0], 'r') as zip_ref: 
+      zip_ref.extractall(dir_path)
+  
+  except:
+    print("exception")
+  pass 
+
 def unzip_url(url):
   """
-  input: url to a zipped file or folder
+  input: url to a zipped file
   output: unzipped file
   """
   import requests
