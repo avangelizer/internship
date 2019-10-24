@@ -110,7 +110,7 @@ class FeatureExtractor(object):
  
             cur_label = item['label'] 
             img = cv2.imread(item['image']) 
-            img = resize_to_size(img, 150) 
+            img = resize_to_size(img) 
  
             num_dims = 128 
             fvs = self.extract_image_features(img) 
@@ -158,7 +158,7 @@ def extract_feature_map(input_map, kmeans, centroids):
  
         print("Extracting features for", item['image'])
         img = cv2.imread(item['image']) 
-        img = resize_to_size(img, 150) 
+        img = resize_to_size(img) 
  
         temp_dict['feature_vector'] = FeatureExtractor().get_feature_vector(img, kmeans, centroids) 
  
