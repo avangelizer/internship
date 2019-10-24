@@ -36,7 +36,7 @@ class SIFTExtractor():
       kps, des = self.extractor.detectAndCompute(gray_image, None)
       return kps, des
 
-# Vector quantization 
+# Quantizer class calculates vector quantization and builds the feature vector 
 class Quantizer(object): 
     def __init__(self, num_clusters=32): 
         self.num_dims = 128 
@@ -80,6 +80,7 @@ class Quantizer(object):
 
 
 class FeatureExtractor(object): 
+    """designed to extract the centroids of each of the images"""
     def extract_image_features(self, img): 
         # Dense feature detector 
         kps = DenseDetector().detect(img) 
