@@ -29,7 +29,7 @@ class SIFTExtractor():
 
     def compute(self, image, kps):
       if image is None:
-        print "Not a valid image"
+        print("Not a valid image")
         raise TypeError
 
       gray_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
