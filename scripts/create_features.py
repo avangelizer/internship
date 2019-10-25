@@ -170,7 +170,7 @@ def extract_feature_map(input_map, kmeans, centroids):
 # Resize
 def resize_to_size(input_image, new_size=(256, 256)): 
   import cv2
-  res = cv2.resize(img, dsize=new_size, interpolation=cv2.INTER_AREA) 
+  res = cv2.resize(input_image, dsize=new_size, interpolation=cv2.INTER_AREA) 
   return res
     
  
