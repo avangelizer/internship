@@ -143,7 +143,7 @@ def load_input_map(label, input_folder):
  
     # Parse the input folder and assign the  labels 
     for root, dirs, files in os.walk(input_folder): 
-        for filename in (x for x in files if x.endswith('.jpg')): 
+        for filename in (x for x in files if x.upper()endswith('.JPG')): 
             combined_data.append({'label': label, 'image': 
              os.path.join(root, filename)}) 
  
