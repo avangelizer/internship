@@ -227,7 +227,7 @@ class FineTuneCNN:
         except:
             class_indices = {value: index for index, value in enumerate(class_labels)}
         class_labels_ordered = [""]*len(class_indices)
-        for label,index in class_indices.iteritems():
+        for label,index in class_indices.items():
             class_labels_ordered[index] = label
         class_labels_ordered = ["image"] + class_labels_ordered
         
