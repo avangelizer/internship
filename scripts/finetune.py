@@ -102,7 +102,7 @@ class FineTuneCNN:
            layer.trainable = True
         
         self.model.compile(optimizer=SGD(lr=self.lr, momentum=0.9), loss='categorical_crossentropy',metrics=['accuracy'])
-        print 'Model built.'
+        print('Model built.')
         
     def train(self, train_path=None, num_training_samples=None, validation_path=None, num_validation_samples=None, 
               batch_size=0, num_epochs=0, early_stopping=False, aug=False, checkpoint=None, model_path=None):
