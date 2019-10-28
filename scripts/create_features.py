@@ -91,7 +91,7 @@ class FeatureExtractor(object):
         return fvs 
  
     # Extract the centroids from the feature points 
-    def get_centroids(self, input_map, num_samples_to_fit=10): 
+    def get_centroids(self, input_map, num_samples_to_fit=100): 
         kps_all = [] 
  
         count = 0 
