@@ -242,7 +242,7 @@ class FineTuneCNN:
         self.batch_size = batch_size
         
         pred_datagen = ImageDataGenerator(preprocessing_function=self.__preprocess)
-        pred_gen = pred_datagen.flow_from_directory(self.inference_path, target_size=dimensions, batch_size=self.batch_size,
+        pred_gen = pred_datagen.flow_from_directory(self.inference_path, target_size=self.dimensions, batch_size=self.batch_size,
                                                     class_mode=None, shuffle=False)
 
         predictions, filenames = self.model.predict_generator(pred_gen, val_samples=self.num_inference_samples), pred_gen.filenames
