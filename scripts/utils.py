@@ -25,7 +25,7 @@ def log_string(path, string):
         path (str) : path of the log file
         string (str) : string to be logged
     """
-    with open(path, "a") as f:
+    with open(path, "a+") as f:
         f.write(string+"\n")
         
 def get_ground_truth_labels(test_path, num_test_samples, class_labels):
