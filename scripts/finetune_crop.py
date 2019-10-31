@@ -155,7 +155,7 @@ class FineTuneCNN:
         if self.aug:
             train_datagen = ImageDataGenerator(rotation_range=10, width_shift_range=0.05, zoom_range=0.05,
                                                height_shift_range=0.05, shear_range=0.05,
-                                               channel_shift_range=.1,horizontal_flip=True,
+                                               channel_shift_range=.1,horizontal_flip=True, seed=42
                                                preprocessing_function=self.__preprocess)
             
                 
@@ -167,7 +167,7 @@ class FineTuneCNN:
         if self.crop:
                 self.trn_gen = crop_generator(self.trn_gen)
         if validation_path:
-            val_datagen = ImageDataGenerator(preprocessing_function=self.__preprocess)
+            val_datagen = ImageDataGenerator( seed=42, preprocessing_function=self.__preprocess)
 
             self.val_gen = val_datagen.flow_from_directory(self.validation_path,  
                                                              batch_size=self.batch_size, 
@@ -209,7 +209,7 @@ class FineTuneCNN:
         self.num_test_samples = num_test_samples
         self.batch_size = batch_size
         self.crop = crop
-        test_datagen = ImageDataGenerator(preprocessing_function=self.__preprocess)
+        test_datagen = ImageDataGenerator( seed=42, preprocessing_function=self.__preprocess)
         self.test_gen = test_datagen.flow_from_directory(self.test_path, 
                                                          batch_size=self.batch_size,class_mode="categorical", 
                                                          shuffle=False)
@@ -243,7 +243,7 @@ class FineTuneCNN:
         self.num_inference_samples = num_inference_samples
         self.batch_size = batch_size
         
-        pred_datagen = ImageDataGenerator(preprocessing_function=self.__preprocess)
+        pred_datagen = ImageDataGenerator( seed=42, preprocessing_function=self.__preprocess)
         pred_gen = pred_datagen.flow_from_directory(self.inference_path, target_size=self.dimensions, batch_size=self.batch_size,
                                                     class_mode=None, shuffle=False)
 
