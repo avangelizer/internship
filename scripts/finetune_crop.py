@@ -220,7 +220,7 @@ class FineTuneCNN:
         self.batch_size = batch_size
         test_datagen = ImageDataGenerator(preprocessing_function=self.__preprocess)
         self.test_gen = test_datagen.flow_from_directory(self.test_path, 
-                                                         batch_size=self.batch_size,, target_size=self.dimensions,class_mode="categorical", 
+                                                         batch_size=self.batch_size, target_size=self.dimensions,class_mode="categorical", 
                                                          shuffle=False, seed=42)
 
 
