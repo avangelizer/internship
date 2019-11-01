@@ -176,7 +176,7 @@ class FineTuneCNN:
         self.trn_gen = train_datagen.flow_from_directory(self.train_path,
                                                          batch_size=self.batch_size, class_mode='categorical', shuffle=True, seed=42)
         if self.crop:
-                self.trn_gen = crop_generator(self.trn_gen, n_crops=self.n_crops)
+                self.trn_gen = self.crop_generator(self.trn_gen)
         if validation_path:
             val_datagen = ImageDataGenerator(preprocessing_function=self.__preprocess)
 
