@@ -168,7 +168,7 @@ class FineTuneCNN:
                 
         else:
             train_datagen = ImageDataGenerator(preprocessing_function=self.__preprocess)
-        if !self.crop:
+        if not self.crop:
             self.trn_gen = train_datagen.flow_from_directory(self.train_path,target_size=self.dimensions,
                                                          batch_size=self.batch_size, class_mode='categorical', shuffle=True, seed=42)
         else:
