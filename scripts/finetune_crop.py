@@ -122,16 +122,19 @@ class FineTuneCNN:
         """
         while True:
             x, y = next(xy_gen)
-            batch_crops = np.zeros((self.n_crops, self.dimensions[0],  self.dimensions[0], 3))
-            batch_ys = np.tile(y, (self.n_crops, 1))  # repeat 'y' 5 times
-            for i in range(self.n_crops):
-                batch_crops[i] = random_crop(x, self.dimensions)
-            yield (batch_crops, batch_ys)
+            
+            for i in range(x.shape[0]):
+                #for each image repeat n_crops times
+                batch_crops = np.zeros((self.n_crops, self.dimensions[0],  self.dimensions[0], 3))
+                batch_ys = np.tile(y, (self.n_crops, 1))  # repeat 'y' 5 times
+                for j in range(self.n_crops):
+                    batch_crops[j] = random_crop(x[i], self.dimensions)
+                yield (batch_crops, batch_ys) #yield the n_crops from the same image
 
     
                
     def train(self, train_path=None, num_training_samples=None, validation_path=None, num_validation_samples=None, 
-              batch_size=0, num_epochs=0, early_stopping=False, aug=False,crop=False,n_crops=0 ,checkpoint=None, model_path=None):
+              batch_size=0, num_epochs=0, early_stopping=False, aug=False,crop=False,n_crops=1 ,checkpoint=None, model_path=None):
         """Fits the model
         
         Args:
@@ -198,7 +201,7 @@ class FineTuneCNN:
         if self.checkpoint:
             callback_list.append(self.checkpoint)
             
-        self.model.fit_generator(self.trn_gen, samples_per_epoch=self.num_training_samples, 
+        self.model.fit_generator(self.trn_gen, samples_per_epoch=self.num_training_samples * self.n_crops, 
                                  validation_data=self.val_gen, nb_val_samples=self.num_validation_samples,
                                  nb_epoch=self.num_epochs, verbose=1, callbacks=callback_list,workers=1,use_multiprocessing=False)
     
