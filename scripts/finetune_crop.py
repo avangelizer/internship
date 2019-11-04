@@ -128,7 +128,7 @@ class FineTuneCNN:
                 batch_crops = np.zeros((self.n_crops, self.dimensions[0],  self.dimensions[0], 3))
                 batch_ys = np.tile(y, (self.n_crops, 1))  # repeat 'y' 5 times
                 for j in range(self.n_crops):
-                    batch_crops[j] = random_crop(x[i], self.dimensions)
+                    batch_crops[j] = random_crop(x[i],(self.dimensions[0],self.dimensions[0]))
                 yield (batch_crops, batch_ys) #yield the n_crops from the same image
 
     
