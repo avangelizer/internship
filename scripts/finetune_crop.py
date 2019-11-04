@@ -164,22 +164,19 @@ class FineTuneCNN:
                                                height_shift_range=0.05, shear_range=0.05,
                                                channel_shift_range=.1,horizontal_flip=True, 
                                                preprocessing_function=self.__preprocess)
-            else:
-                train_datagen = ImageDataGenerator(rotation_range=10, width_shift_range=0.05, zoom_range=0.05,
-                                               height_shift_range=0.05, shear_range=0.05,
-                                               channel_shift_range=.1,horizontal_flip=True, target_size=self.dimensions,
-                                               preprocessing_function=self.__preprocess)
+            
                 
         else:
-            if not self.crop:
-                train_datagen = ImageDataGenerator(target_size=self.dimensions, preprocessing_function=self.__preprocess)
-            else:
-                train_datagen = ImageDataGenerator(preprocessing_function=self.__preprocess)
-
-        self.trn_gen = train_datagen.flow_from_directory(self.train_path,
+            train_datagen = ImageDataGenerator(preprocessing_function=self.__preprocess)
+        if !self.crop:
+            self.trn_gen = train_datagen.flow_from_directory(self.train_path,target_size=self.dimensions,
                                                          batch_size=self.batch_size, class_mode='categorical', shuffle=True, seed=42)
-        if self.crop:
-                self.trn_gen = self.crop_generator(self.trn_gen)
+        else:
+            self.trn_gen = train_datagen.flow_from_directory(self.train_path,
+                                                         batch_size=self.batch_size, class_mode='categorical', shuffle=True, seed=42)
+        
+            self.trn_gen = self.crop_generator(self.trn_gen)
+            
         if validation_path:
             val_datagen = ImageDataGenerator(preprocessing_function=self.__preprocess)
 
